@@ -5,7 +5,7 @@ import * as os from 'os';
 
 const BUNDLETOOL_NAME = 'bundletool';
 const BUNDLETOOL_ENV_PATH = 'bundletoolpath';
-const GITHUB_API_URL = 'https://api.github.com/repos/google/bundletool/releases/latest';
+// const GITHUB_API_URL = 'https://api.github.com/repos/google/bundletool/releases/latest';
 
 async function run() {
     try {
@@ -15,10 +15,12 @@ async function run() {
 
         const githubUsername = task.getInput('username', false);
         const githubPersonalAccesToken = task.getInput('personalAccessToken', false);
+        const apiUrl = task.getInput('bundleToolVersionUrl', true);// ?? GITHUB_API_URL;
+
 
         // Get jar url and version
         let curl: string = task.which('curl', true);
-        var args = ['-s', GITHUB_API_URL];
+        var args = ['-s', apiUrl];
 
         if (githubUsername && githubPersonalAccesToken) {
             args.unshift('-u', `${githubUsername}:${githubPersonalAccesToken}`);

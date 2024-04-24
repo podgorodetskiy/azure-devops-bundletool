@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -33,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -61,10 +65,10 @@ var tool = require("azure-pipelines-tool-lib/tool");
 var os = __importStar(require("os"));
 var BUNDLETOOL_NAME = 'bundletool';
 var BUNDLETOOL_ENV_PATH = 'bundletoolpath';
-var GITHUB_API_URL = 'https://api.github.com/repos/google/bundletool/releases/latest';
+// const GITHUB_API_URL = 'https://api.github.com/repos/google/bundletool/releases/latest';
 function run() {
     return __awaiter(this, void 0, void 0, function () {
-        var arch, githubUsername, githubPersonalAccesToken, curl, args, curlGithubResult, res, versionTag, bundletoolJarUrl, bundletoolJarName, bundletoolPath, curlResult, workingDirectory, toolPath, err_1;
+        var arch, githubUsername, githubPersonalAccesToken, apiUrl, curl, args, curlGithubResult, res, versionTag, bundletoolJarUrl, bundletoolJarName, bundletoolPath, curlResult, workingDirectory, toolPath, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -72,10 +76,11 @@ function run() {
                     arch = findArchitecture();
                     githubUsername = task.getInput('username', false);
                     githubPersonalAccesToken = task.getInput('personalAccessToken', false);
+                    apiUrl = task.getInput('bundleToolVersionUrl', true);
                     curl = task.which('curl', true);
-                    args = ['-s', GITHUB_API_URL];
+                    args = ['-s', apiUrl];
                     if (githubUsername && githubPersonalAccesToken) {
-                        args.unshift('-u', githubUsername + ":" + githubPersonalAccesToken);
+                        args.unshift('-u', "".concat(githubUsername, ":").concat(githubPersonalAccesToken));
                     }
                     curlGithubResult = task.execSync(curl, args);
                     res = JSON.parse(curlGithubResult.stdout);
@@ -89,9 +94,9 @@ function run() {
                     curlResult = _a.sent();
                     if (curlResult.code !== 0) {
                         if (curlResult.error != null) {
-                            task.error("" + curlResult.error);
+                            task.error("".concat(curlResult.error));
                         }
-                        task.error("An error occured when downloading bundletool from this url, please verify that the url exist by copy-paste it into your favorite navigator: " + bundletoolJarUrl);
+                        task.error("An error occured when downloading bundletool from this url, please verify that the url exist by copy-paste it into your favorite navigator: ".concat(bundletoolJarUrl));
                         process.exit(1);
                     }
                     workingDirectory = task.cwd();

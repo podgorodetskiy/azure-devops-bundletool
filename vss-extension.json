@@ -1,16 +1,16 @@
 {
     "manifestVersion": 1,
-    "id": "bundletool-tasks",
-    "name": "Bundletool Helper",
-    "version": "1.3.0",
-    "publisher": "damienaicheh",
+    "id": "install-bundletool-with-url",
+    "name": "Bundletool Install Helper",
+    "version": "1.3.2",
+    "publisher": "AndreyPodgorodetskiy",
     "public": true,
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"
         }
     ],
-    "description": "Easily use bundletool in your pipelines",
+    "description": "Fork of damienaicheh InstallBundletool",
     "icons": {
         "default": "icon.png"
     },
@@ -31,22 +31,16 @@
     },
     "links": {
         "support": {
-            "uri": "https://github.com/damienaicheh/azure-devops-bundletool/issues"
+            "uri": "https://github.com/podgorodetskiy/azure-devops-bundletool/issues"
         }
     },
     "repository": {
         "type": "git",
-        "uri": "https://github.com/damienaicheh/azure-devops-bundletool"
+        "uri": "https://github.com/podgorodetskiy/azure-devops-bundletool"
     },
     "files": [
         {
             "path": "tasks/InstallBundletool"
-        },
-        {
-            "path": "tasks/AabConvertToUniversalApk"
-        },
-        {
-            "path": "tasks/Bundletool"
         }
     ],
     "contributions": [
@@ -58,26 +52,6 @@
             ],
             "properties": {
                 "name": "tasks/InstallBundletool"
-            }
-        },
-        {
-            "id": "aab-convert-to-universal-apk-task",
-            "type": "ms.vss-distributed-task.task",
-            "targets": [
-                "ms.vss-distributed-task.tasks"
-            ],
-            "properties": {
-                "name": "tasks/AabConvertToUniversalApk"
-            }
-        },
-        {
-            "id": "bundletool-task",
-            "type": "ms.vss-distributed-task.task",
-            "targets": [
-                "ms.vss-distributed-task.tasks"
-            ],
-            "properties": {
-                "name": "tasks/Bundletool"
             }
         }
     ]
